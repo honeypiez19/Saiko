@@ -1966,10 +1966,16 @@ progress {
 }
 
 .table-bordered>:not(caption)>* {
+    border-style: solid;
+    --bs-table-border-color: black;
+    border-color: var(--bs-table-border-color);
     border-width: var(--bs-border-width) 0
 }
 
 .table-bordered>:not(caption)>*>* {
+    border-style: solid;
+    --bs-table-border-color: black;
+    border-color: var(--bs-table-border-color);
     border-width: 0 var(--bs-border-width)
 }
 

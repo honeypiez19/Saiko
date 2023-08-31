@@ -16,17 +16,10 @@ if (mysqli_query($conn, $sql)) {
 } else {
     $response = array(
         'status' => 0,
-        'message' => 'Error updating data: ' . mysqli_error($conn),
+        'message' => 'Error updating data!  Please Enter Price again. ',
     );
     echo json_encode($response);
 }
-
-// $query = mysqli_query($conn, $sql);
-// if ($query) {
-//     echo json_encode(array('status' => '1', 'message' => 'Record add successfully'));
-// } else {
-//     echo json_encode(array('status' => '0', 'message' => 'Error insert data!'));
-// }
 mysqli_close($conn);
 ?>
 <?php
