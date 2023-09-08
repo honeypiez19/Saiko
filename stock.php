@@ -32,7 +32,7 @@
                     <th>หน่วย</th>
                     <th>ราคาต่อหน่วย</th>
                     <th>มูลค่าคงเหลือ</th>
-                    <th>จำนวนน้อยสุด</th>
+                    <th>จำนวนขั้นต่ำ</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,10 +40,10 @@
                 <?php
                 while ($row = $result->fetch_assoc()) :
                     if ($row['Qty'] < $row['Min']) {
-                        echo "<tr class='align-middle table-danger'>
+                        echo "<tr class='align-middle'>
                         <td> " . $row['Product_code'] . "</td>
                         <td> " . $row['Product_name'] . "</td>
-                        <td class='text-center'> " . $row['Qty'] . "</td>
+                        <td class='text-center table-danger'> " . $row['Qty'] . "</td>
                         <td class='text-center'> " . $row['Unit'] . "</td>
                         <td class='text-end'> " . $row['Unit_price'] . "</td>
                         <td class='text-end'> " . $row['Residual_value'] . "</td>

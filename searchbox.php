@@ -18,7 +18,7 @@ $port = "3306";
 $conn = new mysqli($servername, $username, $password, $db,$port);
 
 //search condition
-$sql = "SELECT * FROM testStock WHERE Product_name LIKE '$search%' or Product_code LIKE '$search%' ";
+$sql = "SELECT * FROM Stock WHERE Product_name LIKE '$search%' or Product_code LIKE '$search%' ";
 
 // check connect
 if ($conn->query($sql) === false) {

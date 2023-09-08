@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -10,6 +9,7 @@
     <link href="css/boostrap_531.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet" />
     <script src="js/bootstrap_531.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 
@@ -30,10 +30,22 @@
                         <a class="nav-link" href="confirm.php">Confirmation</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="approve.php">Approve</a>
+                        <a class="nav-link" href="add_new.php">Add New Product</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="import.php">Import</a>
+                        <a class="nav-link" href="stockin.php">Stock In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Stock Out</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a type="button" class="btn btn-dark" href="maker.php">Maker</a>
+                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="maker_new.php">New Maker</a></li>
+                            <li><a class="dropdown-item" href="maker_edit.php">Edit Maker</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>

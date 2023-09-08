@@ -71,7 +71,7 @@
 
                 $.ajax({
                     type: "post",
-                    url: "change.php",
+                    url: "ajax_change.php",
                     data: {
                         Product_code: productCode,
                         price_change: priceChange
