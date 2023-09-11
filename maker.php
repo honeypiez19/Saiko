@@ -20,39 +20,42 @@
     <?php include 'header_nav.php' ?>
     <div class="container">
         <h1 class="heading" style="margin-top: 50px; margin-bottom: 60px">ข้อมูลผู้จำหน่าย</h1>
-        <!-- search box -->
-        <form class="form-horizontal" method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
-            <div class="row" style="margin-top: 20px;">
+        <!-- form maker-->
+        <form class="form">
+            <!-- search box -->
+            <div class="row" style="margin-top: 20px; font-size: 20px;">
                 <div class="input-group">
-                    <div class="col-1" style="font-size: 20px;">
+                    <div class="col-1">
                         TAX ID :
                     </div>
                     <div class="col-3">
-                        <input name="txtKeyword" type="text" class="form-control" id="txtKeyword" placeholder="Type here">
-                    </div>
-                    <div class="col" style="padding-left:20px">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <select style="width:250px; height:30px" id="taxid">
+                            <option value="" selected disabled>- กรุณาเลือก TAX ID -</option>
+                            <?php
+                            $sql2 = "select * from Maker";
+                            $query2 = mysqli_query($conn, $sql2);
+                            foreach ($query2 as $row) { ?>
+                                <option value="<?= $row['TaxID'] ?>"><?= $row['TaxID'] ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
                 </div>
             </div>
-        </form>
-        <!-- end search box -->
-        <!-- form -->
-        <form method="post" action="">
-            <?php $Product_code = $Product_name = $Qty = $Unit = $Unit_price = $Residual_value = $Min = $Max = ""; ?>
+            <!-- end search box -->
+
             <div class="row" style="font-size: 20px; margin-top: 40px">
                 <div class="col-1">
                     ชื่อบริษัท :
                 </div>
                 <div class="col-3">
-                    <input type="text" name="Product_code" value="<?php echo $Product_code; ?>">
+                    <input type="text" id="CompanyName">
                     <br><br>
                 </div>
                 <div class="col-1">
                     สาขา :
                 </div>
                 <div class="col-3">
-                    <input type="text" name="Qty" value="<?php echo $Qty; ?>">
+                    <input type="text" id="MajorName">
                     <br><br>
                 </div>
             </div>
@@ -61,51 +64,50 @@
                     เลขที่ :
                 </div>
                 <div class="col-1">
-                    <input type="text" name="Product_name" size="2" value="<?php echo $Product_name; ?>">
+                    <input type="text" id="AddrNo" size="2">
                     <br><br>
                 </div>
                 <div class="col-2">
                     <label>หมู่ที่ :</label>&emsp;&emsp;
-                    <input type="text" name="Product_name" size="2" value="<?php echo $Product_name; ?>">
+                    <input type="text" id="Moo" size="2">
                     <br><br>
                 </div>
                 <div class="col-1">
                     อาคาร :
                 </div>
                 <div class="col-3">
-                    <input type="text" name="Qty" value="<?php echo $Qty; ?>">
+                    <input type="text" id="Building">
                     <br><br>
                 </div>
                 <div class="col">
                     ชั้น :
                 </div>
                 <div class="col-3">
-                    <input type="text" name="Product_name" size="8" value="<?php echo $Product_name; ?>">
+                    <input type="text" id="Floor" size="8">
                     <br><br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
                 <div class="col-2">
                     <label>ห้อง :</label>&emsp;&emsp;&emsp;
-                    <input type="text" name="Qty" size="2" value="<?php echo $Qty; ?>">
+                    <input type="text" id="Room" size="2">
                     <br><br>
                 </div>
                 <div class="col-2">
                     <label>ซอย :</label>&emsp;&emsp;
-                    <input type="text" name="Qty" size="2" value="<?php echo $Qty; ?>">
+                    <input type="text" id="Soi" size="2">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label>ถนน :</label>&emsp;&emsp;&emsp;
-                    <input type="text" name="Qty" size="20" value="<?php echo $Qty; ?>">
+                    <input type="text" id="Road" size="20">
                     <br><br>
                 </div>
-
                 <div class="col-1">
                     จังหวัด :
                 </div>
                 <div class="col-3">
-                <input type="text" name="Product_code" value="<?php echo $Product_code; ?>">
+                    <input type="text" id="province">
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
@@ -113,59 +115,95 @@
                     อำเภอ :
                 </div>
                 <div class="col-3">
-                <input type="text" name="Product_code" value="<?php echo $Product_code; ?>">
+                    <input type="text" id="district"></input>
                     <br><br>
                 </div>
                 <div class="col-1">
                     ตำบล :
                 </div>
                 <div class="col-3">
-                <input type="text" name="Product_code" value="<?php echo $Product_code; ?>">
+                    <input type="text" id="sub_district"></input>
                     <br>
                 </div>
                 <div class="col-4" style="padding:0px;">
                     &emsp;<label>รหัสไปรษณีย์ :</label>&emsp;&emsp;
-                    <input type="text" size="4" name="postcode" id="postcode">
+                    <input type="text" size="4" id="postcode">
                     <br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
                 <div class="col-4">
                     <label>แฟ็กซ์ :</label>&emsp;&emsp;
-                    <input type="text" name="Qty" size="22" value="<?php echo $Qty; ?>">
+                    <input type="text" id="Fax" size="22">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label>เบอร์โทร 1 :</label>&emsp;&emsp;
-                    <input type="text" name="Qty" size="20" value="<?php echo $Qty; ?>">
+                    <input type="text" id="TelOne" size="20">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label>เบอร์โทร 2 :</label>&emsp;
-                    <input type="text" name="Qty" size="20" value="<?php echo $Qty; ?>">
+                    <input type="text" id="TelTwo" size="20">
                     <br><br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
                 <div class="col-4">
                     <label>เบอร์โทร 3 :</label>&emsp;&emsp;
-                    <input type="text" name="Qty" size="20" value="<?php echo $Qty; ?>">
+                    <input type="text" id="TelThree" size="20">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label>อีเมล 1 :</label>&emsp;&emsp;
-                    <input type="text" name="Qty" size="20" value="<?php echo $Qty; ?>">
+                    <input type="text" id="MailOne" size="20">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label>อีเมล 2 :</label>&emsp;&emsp;
-                    <input type="text" name="Qty" size="20" value="<?php echo $Qty; ?>">
+                    <input type="text" id="MailTwo" size="20">
                     <br><br>
                 </div>
             </div>
         </form>
         <!-- end table product -->
     </div>
+    <script type="text/javascript">
+        // show data of maker
+        $('#taxid').change(function() {
+            var id_tax = $(this).val();
+
+            $.ajax({
+                type: "POST",
+                url: "ajax_maker.php",
+                data: {
+                    id: id_tax,
+                    function: 'taxid'
+                },
+                success: function(data) {
+                    $('#CompanyName').val(data.CompanyName);
+                    $('#MajorName').val(data.MajorName);
+                    $('#AddrNo').val(data.AddrNo);
+                    $('#Moo').val(data.Moo);
+                    $('#Building').val(data.Building);
+                    $('#Floor').val(data.Floor);
+                    $('#Room').val(data.Room);
+                    $('#Soi').val(data.Soi);
+                    $('#Road').val(data.Road);
+                    $('#sub_district').val(data.sub_district);
+                    $('#district').val(data.district);
+                    $('#province').val(data.province);
+                    $('#postcode').val(data.postcode);
+                    $('#Fax').val(data.Fax);
+                    $('#TelOne').val(data.TelOne);
+                    $('#TelTwo').val(data.TelTwo);
+                    $('#TelThree').val(data.TelThree);
+                    $('#MailOne').val(data.MailOne);
+                    $('#MailTwo').val(data.MailTwo);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

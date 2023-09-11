@@ -1,4 +1,4 @@
-<!-- connect database, searchbox and navbar menu -->
+<!-- connect database -->
 <?php include 'connect.php' ?>
 <!DOCTYPE html>
 <html>
@@ -18,75 +18,32 @@
 
 <body>
     <?php include 'header_nav.php' ?>
-
     <div class="container">
-        <?php
-        $nameErr = "";
-        $Product_code = $Product_name = $Qty = $Unit = $Unit_price = $Residual_value = $Min = $Max = "";
-        function altmsg()
-        {
-            echo "<script>
-            Swal.fire({
-                title: 'error',
-                text: 'Please enter data!',
-                icon: 'error',
-            });
-        </script>";
-        }
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (empty($_POST["Product_code"])) {
-                altmsg();
-                $nameErr = "*";
-            }
-            if (empty($_POST["Product_name"])) {
-                $nameErr = "*";
-            }
-            if (empty($_POST["Qty"])) {
-                $nameErr = "*";
-            }
-            if (empty($_POST["Unit"])) {
-                $nameErr = "*";
-            }
-            if (empty($_POST["Unit_price"])) {
-                $nameErr = "*";
-            }
-            if (empty($_POST["Residual_value"])) {
-                $nameErr = "*";
-            }
-            if (empty($_POST["Min"])) {
-                $nameErr = "*";
-            }
-            if (empty($_POST["Max"])) {
-                $nameErr = "*";
-            }
-        } ?>
-        <h1 class="heading" style="margin-top: 50px; margin-bottom: 60px">เพิ่มข้อมูลผู้จำหน่าย</h1>
-        <!-- form -->
-        <form method="post" action="">
-            <div class="row" style="font-size: 20px;">
+        <h1 class="heading" style="margin-top: 50px; margin-bottom: 60px">สร้างข้อมูลผู้จำหน่าย</h1>
+        <!-- form maker-->
+        <form class="form">
+            <div class="row" style="font-size: 20px; margin-top: 40px">
                 <div class="col-1">
-                    TAX ID :
+                    Tax ID :
                 </div>
                 <div class="col-3">
-                    <input type="text" name="Product_code" value="<?php echo $Product_code; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <input type="text" id="taxid" required>
+                    <span class="error">*</span>
                     <br><br>
                 </div>
                 <div class="col-1">
                     ชื่อบริษัท :
                 </div>
                 <div class="col-3">
-                    <input type="text" name="Product_code" value="<?php echo $Product_code; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <input type="text" id="CompanyName" required>
+                    <span class="error">*</span>
                     <br><br>
                 </div>
                 <div class="col-1">
                     สาขา :
                 </div>
                 <div class="col-3">
-                    <input type="text" name="Qty" value="<?php echo $Qty; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <input type="text" id="MajorName">
                     <br><br>
                 </div>
             </div>
@@ -95,50 +52,44 @@
                     เลขที่ :
                 </div>
                 <div class="col-1">
-                    <input type="text" name="Product_name" size="2" value="<?php echo $Product_name; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <input type="text" id="AddrNo" size="2" required>
+                    <span class="error">*</span>
                     <br><br>
                 </div>
                 <div class="col-2">
-                    <label>หมู่ที่ :</label>&emsp;&emsp;
-                    <input type="text" name="Product_name" size="2" value="<?php echo $Product_name; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <label for="AddrNo">หมู่ที่ :</label>&emsp;&emsp;
+                    <input type="text" id="Moo" size="2">
                     <br><br>
                 </div>
                 <div class="col-1">
                     อาคาร :
                 </div>
                 <div class="col-3">
-                    <input type="text" name="Qty" value="<?php echo $Qty; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <input type="text" id="Building">
                     <br><br>
                 </div>
                 <div class="col">
                     ชั้น :
                 </div>
                 <div class="col-3">
-                    <input type="text" name="Product_name" size="8" value="<?php echo $Product_name; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <input type="text" id="Floor" size="8">
                     <br><br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
                 <div class="col-2">
-                    <label>ห้อง :</label>&emsp;&emsp;&emsp;
-                    <input type="text" name="Qty" size="2" value="<?php echo $Qty; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <label for="Room">ห้อง :</label>&emsp;&emsp;&emsp;
+                    <input type="text" id="Room" size="2">
                     <br><br>
                 </div>
                 <div class="col-2">
-                    <label>ซอย :</label>&emsp;&emsp;
-                    <input type="text" name="Qty" size="2" value="<?php echo $Qty; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <label for="Soi">ซอย :</label>&emsp;&emsp;
+                    <input type="text" id="Soi" size="2">
                     <br><br>
                 </div>
                 <div class="col-4">
-                    <label>ถนน :</label>&emsp;&emsp;&emsp;
-                    <input type="text" name="Qty" size="20" value="<?php echo $Qty; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <label for="Road">ถนน :</label>&emsp;&emsp;&emsp;
+                    <input type="text" id="Road" size="20">
                     <br><br>
                 </div>
 
@@ -146,7 +97,7 @@
                     จังหวัด :
                 </div>
                 <div class="col-3">
-                    <select style="width:250px" id="province">
+                    <select style="width:250px" id="province" required>
                         <option value="" selected disabled>-กรุณาเลือกจังหวัด-</option>
                         <?php
                         $sql = "select DISTINCT Province from Province";
@@ -155,7 +106,7 @@
                             <option value="<?= $r['Province'] ?>"><?= $r['Province'] ?></option>
                         <?php } ?>
                     </select>
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <span class="error">*</span>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
@@ -163,75 +114,73 @@
                     อำเภอ :
                 </div>
                 <div class="col-3">
-                    <select style="width:250px" id="district">
+                    <select style="width:250px" id="district" required>
                     </select>
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <span class="error">*</span>
                     <br><br>
                 </div>
                 <div class="col-1">
                     ตำบล :
                 </div>
                 <div class="col-3">
-                    <select style="width:250px" id="sub_district">
+                    <select style="width:250px" id="sub_district" required>
                     </select>
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <span class="error">*</span>
                     <br>
                 </div>
                 <div class="col-4" style="padding:0px;">
-                    &emsp;<label>รหัสไปรษณีย์ :</label>&emsp;&emsp;
-                    <input type="text" size="4" name="postcode" id="postcode">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    &emsp;<label for="postcode">รหัสไปรษณีย์ :</label>&emsp;&emsp;
+                    <input type="text" size="4" id="postcode" required>
+                    <span class="error">*</span>
                     <br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
                 <div class="col-4">
-                    <label>แฟ็กซ์ :</label>&emsp;&emsp;
-                    <input type="text" name="Qty" size="22" value="<?php echo $Qty; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <label for="Fax">แฟ็กซ์ :</label>&emsp;&emsp;
+                    <input type="text" id="Fax" size="22">
                     <br><br>
                 </div>
                 <div class="col-4">
-                    <label>เบอร์โทร 1 :</label>&emsp;&emsp;
-                    <input type="text" name="Qty" size="20" value="<?php echo $Qty; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <label for="TelOne">เบอร์โทร 1 :</label>&emsp;&emsp;
+                    <input type="text" id="TelOne" size="20" required>
+                    <span class="error">*</span>
                     <br><br>
                 </div>
                 <div class="col-4">
-                    <label>เบอร์โทร 2 :</label>&emsp;
-                    <input type="text" name="Qty" size="20" value="<?php echo $Qty; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <label for="TelTwo">เบอร์โทร 2 :</label>&emsp;
+                    <input type="text" id="TelTwo" size="20">
                     <br><br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
                 <div class="col-4">
-                    <label>เบอร์โทร 3 :</label>&emsp;&emsp;
-                    <input type="text" name="Qty" size="20" value="<?php echo $Qty; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <label for="TelThree">เบอร์โทร 3 :</label>&emsp;&emsp;
+                    <input type="text" id="TelThree" size="20">
                     <br><br>
                 </div>
                 <div class="col-4">
-                    <label>อีเมล 1 :</label>&emsp;&emsp;
-                    <input type="text" name="Qty" size="20" value="<?php echo $Qty; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <label for="MailOne">อีเมล 1 :</label>&emsp;&emsp;
+                    <input type="text" id="MailOne" size="20" required>
+                    <span class="error">*</span>
                     <br><br>
                 </div>
                 <div class="col-4">
-                    <label>อีเมล 2 :</label>&emsp;&emsp;
-                    <input type="text" name="Qty" size="20" value="<?php echo $Qty; ?>">
-                    <span class="error"> <?php echo $nameErr; ?></span>
+                    <label for="MailTwo">อีเมล 2 :</label>&emsp;&emsp;
+                    <input type="text" id="MailTwo" size="20">
                     <br><br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
                 <div class="col" style="margin-top:20px">
-                    <input type="submit" name="submit" class="btn btn-outline-success btn-lg" value="บันทึก">
+                    <!-- <input type="submit" id="submit" class="btn btn-outline-success btn-lg" value="บันทึก"> -->
+                    <button type="button" class="btn btn-outline-success btn-lg btn-submit-new">บันทึก</button>
                 </div>
             </div>
         </form>
-        <!-- end table product -->
+        <!-- end form maker -->
     </div>
+
     <script type="text/javascript">
         $('#province').change(function() {
             var id_province = $(this).val();
@@ -282,7 +231,91 @@
                     $('#postcode').val(data)
                 }
             });
+        });
 
+        // update data of maker
+        $(document).ready(function() {
+            $(".btn-submit-new").click(function() {
+                //check empty fields
+                let valid = true;
+                $('[required]').each(function() {
+                    if ($(this).is(':invalid') || !$(this).val()) valid = false;
+                })
+                if (!valid) {
+                    Swal.fire({
+                        title: '',
+                        text: 'Please fill all data!',
+                        icon: 'error',
+                    });
+                } else {
+                    var button = $(this);
+                    var form = button.closest("form");
+                    var tax = form.find("#taxid").val();
+                    var ComName = form.find("#CompanyName").val();
+                    var Major = form.find("#MajorName").val();
+                    var Addr = form.find("#AddrNo").val();
+                    var Moo = form.find("#Moo").val();
+                    var Building = form.find("#Building").val();
+                    var Floor = form.find("#Floor").val();
+                    var Room = form.find("#Room").val();
+                    var Soi = form.find("#Soi").val();
+                    var Road = form.find("#Road").val();
+                    var SubDis = form.find("#sub_district").val();
+                    var District = form.find("#district").val();
+                    var Province = form.find("#province").val();
+                    var Postcode = form.find("#postcode").val();
+                    var Fax = form.find("#Fax").val();
+                    var TelOne = form.find("#TelOne").val();
+                    var TelTwo = form.find("#TelTwo").val();
+                    var TelThree = form.find("#TelThree").val();
+                    var MailOne = form.find("#MailOne").val();
+                    var MailTwo = form.find("#MailTwo").val();
+
+                    $.ajax({
+                        type: "post",
+                        url: "ajax_maker.php",
+                        data: {
+                            TaxID: tax,
+                            Company_name: ComName,
+                            MajorName: Major,
+                            Addr: Addr,
+                            Moo: Moo,
+                            Building: Building,
+                            Floor: Floor,
+                            Room: Room,
+                            Soi: Soi,
+                            Road: Road,
+                            Sub_district: SubDis,
+                            District: District,
+                            Province: Province,
+                            Postcode: Postcode,
+                            Fax: Fax,
+                            TelOne: TelOne,
+                            TelTwo: TelTwo,
+                            TelThree: TelThree,
+                            MailOne: MailOne,
+                            MailTwo: MailTwo,
+                            function: 'submit-new'
+                        },
+                        success: function(data) {
+                            if (data.status == 1) {
+                                Swal.fire({
+                                    title: '',
+                                    text: 'Data updated successfully!',
+                                    icon: 'success',
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: '',
+                                    text: data.message,
+                                    icon: 'error',
+                                });
+                            }
+                        }
+                    });
+                };
+
+            });
         });
     </script>
 </body>

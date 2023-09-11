@@ -179,7 +179,6 @@
 
         mysqli_close($conn);
     }
-
     ?>
     <script>
         if (window.history.replaceState) {

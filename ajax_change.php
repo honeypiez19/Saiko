@@ -1,5 +1,5 @@
 <?php include 'connect.php';
-$sql = "select * from testStock";
+$sql = "select * from Stock";
 
 $result = $conn->query($sql);
 $result = mysqli_query($conn,$sql);
@@ -10,7 +10,7 @@ if ($conn->query($sql) === false) {
 header('Content-Type: application/json');
 $price_change = $_POST["price_change"];
 $Product_code = $_POST["Product_code"];
-$sql = "UPDATE testStock
+$sql = "UPDATE Stock
         SET Unit_price = '$price_change'
         WHERE Product_code = '$Product_code'";
 if (mysqli_query($conn, $sql)) {
@@ -29,7 +29,4 @@ if (mysqli_query($conn, $sql)) {
     echo json_encode($response);
 }
 mysqli_close($conn);
-?>
-<?php
-
 ?>

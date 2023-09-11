@@ -45,7 +45,7 @@ $result = mysqli_query($conn,$sql);
                     <div class="col">
                         <input name="txtKeyword" type="text" class="form-control" id="txtKeyword" value="<?php echo $search; ?>" placeholder="type here">
                     </div>
-                    <div class="col">
+                    <div class="col" style="padding-left:20px">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </div>
                 </div>
