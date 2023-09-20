@@ -19,13 +19,14 @@
 <body>
     <?php include 'header_nav.php' ?>
 
-    <div class="row justify-content-end">
+    
+    <div class="container myform" style="margin-top: 50px;">
+    <div class="row justify-content-end" style="padding-right:10px;">
         <div class="col-2" style="margin-top: 30px;"><a type="button" class="btn btn-outline-info btn-lg">Import</a></div>
     </div>
-    <div class="container">
-        <h1 class="heading" style="margin-top: 20px; margin-bottom: 20px">เพิ่มสินค้า</h1>
+        <h1 class="heading" style="margin-top: 10px; margin-bottom: 20px">เพิ่มสินค้า</h1>
         <!-- table product -->
-        <table class="table table-light">
+        <table class="table table-borderless">
             <?php
             $codeErr = $nameErr = $qtyErr = $unitErr = $unit_priceErr = $minErr = $maxErr = "";
             $Product_code = $Product_name = $Qty = $Unit = $Unit_price = $Min = $Max = "";
@@ -58,19 +59,19 @@
             } ?>
             <thead>
                 <tr class="text-center">
-                    <td style='width:10%'></td>
+                    <td style='width:25%'></td>
                     <td style='width:15%'></td>
                     <td></td>
                 </tr>
             </thead>
             <tbody>
-                <form method="post">
+                <form method="post" class="myform">
                     <tr style="font-size: 20px;">
                         <td></td>
                         <td>
                             รหัสสินค้า :
                         </td>
-                        <td><input type="text" name="Product_code" value="<?php echo $Product_code; ?>">
+                        <td><input class="myform" type="text" name="Product_code" value="<?php echo $Product_code; ?>">
                             <span class="error">* <?php echo $codeErr; ?></span>
                             <br><br>
                         </td>
@@ -80,7 +81,7 @@
                         <td>
                             ชื่อสินค้า :
                         </td>
-                        <td><input type="text" name="Product_name" value="<?php echo $Product_name; ?>">
+                        <td><input class="myform" type="text" name="Product_name" value="<?php echo $Product_name; ?>">
                             <span class="error">* <?php echo $nameErr; ?></span>
                             <br><br>
                         </td>
@@ -90,7 +91,7 @@
                         <td>
                             จำนวน :
                         </td>
-                        <td><input type="text" name="Qty" value="<?php echo $Qty; ?>">
+                        <td><input class="myform" type="text" name="Qty" value="<?php echo $Qty; ?>">
                             <span class="error">* <?php echo $qtyErr; ?></span>
                             <br><br>
                         </td>
@@ -100,7 +101,7 @@
                         <td>
                             หน่วย :
                         </td>
-                        <td><input type="text" name="Unit" value="<?php echo $Unit; ?>">
+                        <td><input class="myform" type="text" name="Unit" value="<?php echo $Unit; ?>">
                             <span class="error">* <?php echo $unitErr; ?></span>
                             <br><br>
                         </td>
@@ -110,7 +111,7 @@
                         <td>
                             ราคาต่อหน่วย :
                         </td>
-                        <td><input type="text" name="Unit_price" value="<?php echo $Unit_price; ?>">
+                        <td><input class="myform" type="text" name="Unit_price" value="<?php echo $Unit_price; ?>">
                             <span class="error">* <?php echo $unit_priceErr; ?></span>
                             <br><br>
                         </td>
@@ -120,7 +121,7 @@
                         <td>
                             จำนวนขั้นต่ำ :
                         </td>
-                        <td><input type="text" name="Min" value="<?php echo $Min; ?>">
+                        <td><input class="myform" type="text" name="Min" value="<?php echo $Min; ?>">
                             <span class="error">* <?php echo $minErr; ?></span>
                             <br><br>
                         </td>
@@ -130,14 +131,15 @@
                         <td>
                             จำนวนสูงสุด :
                         </td>
-                        <td><input type="text" name="Max" value="<?php echo $Max; ?>">
+                        <td><input class="myform" type="text" name="Max" value="<?php echo $Max; ?>">
                             <span class="error">* <?php echo $maxErr; ?></span>
                             <br><br>
                         </td>
                     </tr>
                     <tr style="font-size: 20px;">
-                        <td colspan="3" class="text-start" style="padding-left: 110px;">
-                            <input type="submit" name="submit" class="btn btn-outline-success btn-lg" value="บันทึก">
+                        <td colspan="3" class="text-end" style="padding-right: 250px;">
+                            <input type="submit" name="submit" class="btn btn-outline-success btn-lg" value="Submit">&emsp;&emsp;
+                            <input type="reset" name="reset" class="btn btn-outline-warning btn-lg" value="Reset">
                         </td>
                     </tr>
                 </form>
@@ -155,14 +157,14 @@
         $Unit_price = $_REQUEST['Unit_price'];
         $Min = $_REQUEST['Min'];
         $Max = $_REQUEST['Max'];
-        $sql = "INSERT INTO Stock (Product_code,Product_name,Qty,Unit,Unit_price,Min,Max) 
+        $sql = "INSERT INTO AddNewStock (Product_code,Product_name,Qty,Unit,Unit_price,Min,Max) 
                 VALUES ('$Product_code','$Product_name','$Qty','$Unit','$Unit_price','$Min','$Max')";
 
         if ($conn->query($sql) === false) {
             echo "<script>
             Swal.fire({
                 title: 'error',
-                text: 'Data insert unsuccess!',
+                text: 'Data insert unsuccess! ',
                 icon: 'error',
             });
         </script>";

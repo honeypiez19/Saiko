@@ -18,7 +18,7 @@
 
 <body>
     <?php include 'header_nav.php' ?>
-    <div class="container">
+    <div class="container myform" style="margin-top: 50px;">
         <h1 class="heading" style="margin-top: 50px; margin-bottom: 60px">แก้ไขข้อมูลผู้จำหน่าย</h1>
         <!-- form maker-->
         <form class="form">
@@ -29,7 +29,7 @@
                         TAX ID :
                     </div>
                     <div class="col-3">
-                        <select style="width:250px; height:30px" id="taxid">
+                        <select class="myform" style="width:250px; height:40px" id="taxid">
                             <option value="" selected disabled>- กรุณาเลือก TAX ID -</option>
                             <?php
                             $sql2 = "select * from Maker";
@@ -48,7 +48,7 @@
                     ชื่อบริษัท :
                 </div>
                 <div class="col-3">
-                    <input type="text" id="CompanyName" required>
+                    <input class="myform" type="text" id="CompanyName" required>
                     <span class="error">*</span>
                     <br><br>
                 </div>
@@ -56,21 +56,19 @@
                     สาขา :
                 </div>
                 <div class="col-3">
-                    <input type="text" id="MajorName">
+                    <input class="myform" type="text" id="MajorName">
                     <br><br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
-                <div class="col-1">
-                    เลขที่ :
-                </div>
-                <div class="col-1">
-                    <input type="text" id="AddrNo" size="2" required>
+                <div class="col-2">
+                    <label for="AddrNo">เลขที่ :</label>&emsp;&emsp;
+                    <input class="myform" type="text" id="AddrNo" size="1" required>
                     <span class="error">*</span>
                     <br><br>
                 </div>
                 <div class="col-2">
-                    <label for="AddrNo">หมู่ที่ :</label>&emsp;&emsp;
+                    <label for="Moo">หมู่ที่ :</label>&emsp;&emsp;
                     <input type="text" id="Moo" size="2">
                     <br><br>
                 </div>
@@ -78,31 +76,31 @@
                     อาคาร :
                 </div>
                 <div class="col-3">
-                    <input type="text" id="Building">
+                    <input class="myform" type="text" id="Building">
                     <br><br>
                 </div>
                 <div class="col">
                     ชั้น :
                 </div>
                 <div class="col-3">
-                    <input type="text" id="Floor" size="8">
+                    <input class="myform" type="text" id="Floor" size="8">
                     <br><br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
                 <div class="col-2">
                     <label for="Room">ห้อง :</label>&emsp;&emsp;&emsp;
-                    <input type="text" id="Room" size="2">
+                    <input class="myform" type="text" id="Room" size="1">
                     <br><br>
                 </div>
                 <div class="col-2">
                     <label for="Soi">ซอย :</label>&emsp;&emsp;
-                    <input type="text" id="Soi" size="2">
+                    <input class="myform" type="text" id="Soi" size="2">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label for="Road">ถนน :</label>&emsp;&emsp;&emsp;
-                    <input type="text" id="Road" size="20">
+                    <input class="myform" type="text" id="Road" size="20">
                     <br><br>
                 </div>
 
@@ -110,9 +108,10 @@
                     จังหวัด :
                 </div>
                 <div class="col-3">
-                    <select style="width:250px" id="province" required>
+                    <select class="myform" style="width:250px" id="province" required>
                         <option value="" selected disabled>-กรุณาเลือกจังหวัด-</option>
                         <?php
+                        $districtt = "";
                         $sql = "select DISTINCT Province from Province";
                         $query = mysqli_query($conn, $sql);
                         foreach ($query as $r) { ?>
@@ -127,7 +126,8 @@
                     อำเภอ :
                 </div>
                 <div class="col-3">
-                    <select style="width:250px" id="district" required>
+                    <select class="myform" style="width:250px" id="district" required>
+                        <option value="<?= $r['District'] ?>"><?= $districtt ?></option>
                     </select>
                     <span class="error">*</span>
                     <br><br>
@@ -136,14 +136,14 @@
                     ตำบล :
                 </div>
                 <div class="col-3">
-                    <select style="width:250px" id="sub_district" required>
+                    <select class="myform" style="width:250px" id="sub_district" required>
                     </select>
                     <span class="error">*</span>
                     <br>
                 </div>
                 <div class="col-4" style="padding:0px;">
                     &emsp;<label for="postcode">รหัสไปรษณีย์ :</label>&emsp;&emsp;
-                    <input type="text" size="4" id="postcode" required>
+                    <input class="myform" type="text" size="4" id="postcode" required>
                     <span class="error">*</span>
                     <br>
                 </div>
@@ -151,43 +151,43 @@
             <div class="row" style="font-size: 20px;">
                 <div class="col-4">
                     <label for="Fax">แฟ็กซ์ :</label>&emsp;&emsp;
-                    <input type="text" id="Fax" size="22">
+                    <input class="myform" type="text" id="Fax" size="22">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label for="TelOne">เบอร์โทร 1 :</label>&emsp;&emsp;
-                    <input type="text" id="TelOne" size="20" required>
+                    <input class="myform" type="text" id="TelOne" size="20" required>
                     <span class="error">*</span>
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label for="TelTwo">เบอร์โทร 2 :</label>&emsp;
-                    <input type="text" id="TelTwo" size="20">
+                    <input class="myform" type="text" id="TelTwo" size="20">
                     <br><br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
                 <div class="col-4">
                     <label for="TelThree">เบอร์โทร 3 :</label>&emsp;&emsp;
-                    <input type="text" id="TelThree" size="20">
+                    <input class="myform" type="text" id="TelThree" size="20">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label for="MailOne">อีเมล 1 :</label>&emsp;&emsp;
-                    <input type="text" id="MailOne" size="20" required>
+                    <input class="myform" type="text" id="MailOne" size="20" required>
                     <span class="error">*</span>
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label for="MailTwo">อีเมล 2 :</label>&emsp;&emsp;
-                    <input type="text" id="MailTwo" size="20">
+                    <input class="myform" type="text" id="MailTwo" size="20">
                     <br><br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
-                <div class="col" style="margin-top:20px">
-                    <!-- <input type="submit" id="submit" class="btn btn-outline-success btn-lg" value="บันทึก"> -->
-                    <button type="button" class="btn btn-outline-success btn-lg btn-submit-edit">บันทึก</button>
+                <div class="col" style="margin-top:20px; margin-bottom:30px">
+                    <button type="button" class="btn btn-outline-success btn-lg btn-submit-edit">บันทึก</button>&emsp;&emsp;
+                    <input type="reset" name="reset" class="btn btn-outline-warning btn-lg btn-reset" value="Reset">
                 </div>
             </div>
 
@@ -268,8 +268,8 @@
                     $('#Room').val(data.Room);
                     $('#Soi').val(data.Soi);
                     $('#Road').val(data.Road);
-                    $('#sub_district').html(`<option value='${data.sub_district}'> ${data.sub_district}</option>`);
-                    $('#district').html(`<option value='${data.district}'> ${data.district}</option>`);
+                    $('#sub_district').html(data.sub_district);
+                    $('#district').html(data.district);
                     $('#province').val(data.province);
                     $('#postcode').val(data.postcode);
                     $('#Fax').val(data.Fax);
@@ -280,6 +280,12 @@
                     $('#MailTwo').val(data.MailTwo);
                 }
             });
+        });
+
+        // reset value of district
+        $('.btn-reset').click(function() {
+            $('#sub_district').html(' ');
+            $('#district').html(' ');
         });
 
         // update data of maker
@@ -293,7 +299,7 @@
                 if (!valid) {
                     Swal.fire({
                         title: '',
-                        text: 'Please fill all data!',
+                        text: 'Please fill data!',
                         icon: 'error',
                     });
                 } else {

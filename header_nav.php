@@ -47,6 +47,12 @@
                             <li><a class="dropdown-item" href="maker_edit.php">Edit Maker</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="User_Request.php">Request</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="History.php">History</a>
+                    </li>
                 </ul>
             </div>
         </div>

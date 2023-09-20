@@ -1,7 +1,4 @@
 <?php
-// create search
-ini_set('display_errors', 1);
-error_reporting(~0);
 
 $search = null;
 if (isset($_POST["txtKeyword"])) {

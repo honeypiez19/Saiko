@@ -18,10 +18,10 @@
 
 <body>
     <?php include 'header_nav.php' ?>
-    <div class="container">
+    <div class="container myform" style="margin-top: 50px;">
         <h1 class="heading" style="margin-top: 50px; margin-bottom: 60px">ข้อมูลผู้จำหน่าย</h1>
         <!-- form maker-->
-        <form class="form">
+        <form class="form" style="margin-left: 14px;">
             <!-- search box -->
             <div class="row" style="margin-top: 20px; font-size: 20px;">
                 <div class="input-group">
@@ -29,7 +29,7 @@
                         TAX ID :
                     </div>
                     <div class="col-3">
-                        <select style="width:250px; height:30px" id="taxid">
+                        <select class="myform" style="width:250px; height:40px" id="taxid">
                             <option value="" selected disabled>- กรุณาเลือก TAX ID -</option>
                             <?php
                             $sql2 = "select * from Maker";
@@ -42,20 +42,20 @@
                 </div>
             </div>
             <!-- end search box -->
-
+            <!-- div maker -->
             <div class="row" style="font-size: 20px; margin-top: 40px">
                 <div class="col-1">
                     ชื่อบริษัท :
                 </div>
                 <div class="col-3">
-                    <input type="text" id="CompanyName">
+                    <input class="myform" type="text" id="CompanyName">
                     <br><br>
                 </div>
                 <div class="col-1">
                     สาขา :
                 </div>
                 <div class="col-3">
-                    <input type="text" id="MajorName">
+                    <input class="myform" type="text" id="MajorName">
                     <br><br>
                 </div>
             </div>
@@ -64,50 +64,50 @@
                     เลขที่ :
                 </div>
                 <div class="col-1">
-                    <input type="text" id="AddrNo" size="2">
+                    <input class="myform" type="text" id="AddrNo" size="2">
                     <br><br>
                 </div>
                 <div class="col-2">
                     <label>หมู่ที่ :</label>&emsp;&emsp;
-                    <input type="text" id="Moo" size="2">
+                    <input class="myform" type="text" id="Moo" size="2">
                     <br><br>
                 </div>
                 <div class="col-1">
                     อาคาร :
                 </div>
                 <div class="col-3">
-                    <input type="text" id="Building">
+                    <input class="myform" type="text" id="Building">
                     <br><br>
                 </div>
                 <div class="col">
                     ชั้น :
                 </div>
                 <div class="col-3">
-                    <input type="text" id="Floor" size="8">
+                    <input class="myform" type="text" id="Floor" size="8">
                     <br><br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
                 <div class="col-2">
                     <label>ห้อง :</label>&emsp;&emsp;&emsp;
-                    <input type="text" id="Room" size="2">
+                    <input class="myform" type="text" id="Room" size="1">
                     <br><br>
                 </div>
                 <div class="col-2">
                     <label>ซอย :</label>&emsp;&emsp;
-                    <input type="text" id="Soi" size="2">
+                    <input class="myform" type="text" id="Soi" size="2">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label>ถนน :</label>&emsp;&emsp;&emsp;
-                    <input type="text" id="Road" size="20">
+                    <input class="myform" type="text" id="Road" size="20">
                     <br><br>
                 </div>
                 <div class="col-1">
                     จังหวัด :
                 </div>
                 <div class="col-3">
-                    <input type="text" id="province">
+                    <input class="myform" type="text" id="province">
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
@@ -115,58 +115,58 @@
                     อำเภอ :
                 </div>
                 <div class="col-3">
-                    <input type="text" id="district"></input>
+                    <input class="myform" type="text" id="district"></input>
                     <br><br>
                 </div>
                 <div class="col-1">
                     ตำบล :
                 </div>
                 <div class="col-3">
-                    <input type="text" id="sub_district"></input>
+                    <input class="myform" type="text" id="sub_district"></input>
                     <br>
                 </div>
                 <div class="col-4" style="padding:0px;">
                     &emsp;<label>รหัสไปรษณีย์ :</label>&emsp;&emsp;
-                    <input type="text" size="4" id="postcode">
+                    <input class="myform" type="text" size="4" id="postcode">
                     <br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
                 <div class="col-4">
                     <label>แฟ็กซ์ :</label>&emsp;&emsp;
-                    <input type="text" id="Fax" size="22">
+                    <input class="myform" type="text" id="Fax" size="22">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label>เบอร์โทร 1 :</label>&emsp;&emsp;
-                    <input type="text" id="TelOne" size="20">
+                    <input class="myform" type="text" id="TelOne" size="20">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label>เบอร์โทร 2 :</label>&emsp;
-                    <input type="text" id="TelTwo" size="20">
+                    <input class="myform" type="text" id="TelTwo" size="20">
                     <br><br>
                 </div>
             </div>
             <div class="row" style="font-size: 20px;">
                 <div class="col-4">
                     <label>เบอร์โทร 3 :</label>&emsp;&emsp;
-                    <input type="text" id="TelThree" size="20">
+                    <input class="myform" type="text" id="TelThree" size="20">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label>อีเมล 1 :</label>&emsp;&emsp;
-                    <input type="text" id="MailOne" size="20">
+                    <input class="myform" type="text" id="MailOne" size="20">
                     <br><br>
                 </div>
                 <div class="col-4">
                     <label>อีเมล 2 :</label>&emsp;&emsp;
-                    <input type="text" id="MailTwo" size="20">
+                    <input class="myform" type="text" id="MailTwo" size="20">
                     <br><br>
                 </div>
             </div>
         </form>
-        <!-- end table product -->
+        <!-- end div maker -->
     </div>
     <script type="text/javascript">
         // show data of maker
