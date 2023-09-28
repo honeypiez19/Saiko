@@ -26,9 +26,9 @@
             <div class="col-3">แผนก :</div>
             <div class="col-3">รหัส :</div>
             <div class="col-3">ชื่อ :</div>
-            <div class="col-3">นามสกุล :<br></div>
+            <div class="col-3">นามสกุล :</div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-bottom: 20px;">
             <div class="col-3">
                 <select class="myform" style="width:250px; height:30px" id="Dept">
                     <option value="" selected disabled>- กรุณาเลือกแผนก -</option>
@@ -46,12 +46,10 @@
                 </select>
             </div>
             <div class="col-3">
-                <input type="text" class="myform" id="fname" size="27" value="">
-                <br><br>
+                <input class="myform" id="fname" size="27" readonly>
             </div>
             <div class="col-3">
-                <input type="text" class="myform" id="lname" size="27" value="">
-                <br><br>
+                <input class="myform" id="lname" size="27" readonly>
             </div>
         </div>
         <div class="row">
@@ -113,28 +111,22 @@
                 <div id="Divfooter">
                     <div class="row" style="margin-top : 50px; margin-left:2px">ได้ตรวจสอบจำนวน และรายละเอียดต่างๆ เรียบร้อยแล้ว</div>
                     <div class="row" style="margin-top : 30px">
-                        <div class="col" style="margin-left : 5px">ผู้เบิก REQUEST NAME _______________________
+                        <div class="col" style="margin-left : 5px">ผู้เบิก REQUEST NAME : <span id="nameReq"></span>
                         </div>
-                        <div class="col" style="text-align: right;">ผู้อนุมัติ APPROVED BY _____________________________
+                        <div class="col-4" style="text-align: left;">ผู้อนุมัติ APPROVED BY :
                         </div>
                     </div>
                     <div class="row" style="margin-top : 20px">
-                        <div class="col" style="margin-left : 5px">ผู้จ่ายของ STORE KEEPER _____________________
+                        <div class="col" style="margin-left : 5px">ผู้จ่ายของ STORE KEEPER :
                         </div>
-                        <div class="col" style="text-align: right">ผู้รับของ GOODS RECEIVED BY _____________________
-                        </div>
+                        <div class="col-4" style="text-align: left">ผู้รับของ GOODS RECEIVED BY :
                     </div>
                 </div>
 
             </form>
             <div class="row" style="text-align: end; margin-top : 50px">
-                <div class="col"><button class="btn btn-outline-success btn-submit" style="margin-bottom: 50px;" id="submit" type="submit">Submit</button></div>
-            </div>
-            <div class="row">
                 <input type="hidden" id="result">
-            </div>
-            <div class="row">
-                <input type="hidden" id="colresult">
+                <div class="col"><button class="btn btn-outline-success btn-submit" style="margin-bottom: 50px;" id="submit" type="submit">Submit</button></div>
             </div>
         </div>
     </div>
@@ -159,8 +151,8 @@
                     },
                     success: function(data) {
                         $('#usercode').html(data);
-                        $('#fname').val(' ');
-                        $('#lname').val(' ');
+                        $('#fname').val('');
+                        $('#lname').val('');
                     }
                 });
             });
@@ -179,6 +171,7 @@
                     success: function(data) {
                         $('#fname').val(data.name);
                         $('#lname').val(data.lname);
+                        $('#nameReq').html(data.name);
                     }
                 });
             });
@@ -188,6 +181,7 @@
                 var productCode = $('#txtsearch').val(); // ดึงค่าที่ป้อนในฟิลด์ #txtsearch และเก็บค่านั้นไว้ในตัวแปร productCodeOrName
                 addRowToTable(productCode); // เรียกฟังก์ชัน addRowToTable() และส่งค่า productCodeOrName เข้าไปในฟังก์ชันจะสร้างแถวใหม่เมื่อกดปุ่ม Addrow
                 $('#Divfooter').show();
+                CodeCheck(productCode);
             });
 
             // submit clicked
@@ -209,81 +203,93 @@
                 var req_date = [day_req.join(""), req_no];
                 var fname = $('#fname').val();
                 var lname = $('#lname').val();
+                
 
-                // loop get value of row by check index and loop
-                for (i = 0; i < no; i++) {
-
-                    // get value from td[7] in row
-                    n = elements[i].value;
-
-                    // get value in td[1] - td[7] by id
-                    code = $("#Code" + [n]).html();
-                    name = $("#productName" + [n]).html();
-                    qty = $("#qty" + [n]).val();
-                    unit = $("#unit" + [n]).val();
-                    prodNo = $("#prodNo" + [n]).val();
-                    part = $("#part" + [n]).val();
-
-                    // join all value of column in 1 row
-                    join += [code, name, qty, unit, prodNo, part];
-
-                    // push object to array for insert to database
-                    arryProduct.push({
-                        PCode: code,
-                        Pname: name,
-                        Pqty: qty,
-                        Punit: unit,
-                        Pprod: prodNo,
-                        Ppart: part,
-                    })
-                }
-
-                // show result of value in row
-                $("#result").val(req_date);
-                let len = arryProduct.length; // check length of array
-                //$("#colresult").val(len);
-
-                // loop for get object from array
-                for (h = 0; h < len; h++) {
-                    P_code = arryProduct[h].PCode + " ";
-                    P_name = arryProduct[h].Pname + " ";
-                    P_qty = arryProduct[h].Pqty + " ";
-                    P_unit = arryProduct[h].Punit + " ";
-                    P_prodNo = arryProduct[h].Pprod + " ";
-                    P_part = arryProduct[h].Ppart + ",";
-
-                    // insert to database
-                    $.ajax({
-                        type: "post",
-                        url: "User_ajax_req.php",
-                        data: {
-                            Name_req: fname,
-                            P_Code: P_code,
-                            P_Name: P_name,
-                            P_Qty: P_qty,
-                            P_Unit: P_unit,
-                            P_ProdNo: P_prodNo,
-                            P_Part: P_part,
-                            function: 'submit'
-                        },
-                        success: function(data) {
-                            if (data.status == 1) {
-                                Swal.fire({
-                                    title: '',
-                                    text: 'Data updated successfully!',
-                                    icon: 'success',
-                                });
-                                row.remove();
-                            } else {
-                                Swal.fire({
-                                    title: '',
-                                    text: data.message,
-                                    icon: 'error',
-                                });
-                            }
-                        }
+                if (fname.length == 0) {
+                    Swal.fire({
+                        title: '',
+                        text: 'ชื่อผู้เบิกห้ามเป็นค่าว่าง',
+                        icon: 'error',
                     });
+                } else {
+                    // loop get value of row by check index and loop
+                    for (i = 0; i < no; i++) {
+
+                        // get value from td[7] in row
+                        n = elements[i].value;
+
+                        // get value in td[1] - td[7] by id
+                        code = $("#Code" + [n]).html();
+                        name = $("#productName" + [n]).html();
+                        qty = $("#qty" + [n]).val();
+                        unit = $("#unit" + [n]).val();
+                        prodNo = $("#prodNo" + [n]).val();
+                        part = $("#part" + [n]).val();
+
+                        // join all value of column in 1 row
+                        join += [code, name, qty, unit, prodNo, part];
+
+                        // push object to array for insert to database
+                        arryProduct.push({
+                            PCode: code,
+                            Pname: name,
+                            Pqty: qty,
+                            Punit: unit,
+                            Pprod: prodNo,
+                            Ppart: part,
+                        })
+                    }
+
+                    // show result of value in row
+                    //$("#result").val(req_date);
+                    let len = arryProduct.length; // check length of array
+                    //$("#colresult").val(len);
+
+                    // loop for get object from array
+                    for (h = 0; h < len; h++) {
+                        P_code = arryProduct[h].PCode + " ";
+                        P_name = arryProduct[h].Pname + " ";
+                        P_qty = arryProduct[h].Pqty + " ";
+                        P_unit = arryProduct[h].Punit + " ";
+                        P_prodNo = arryProduct[h].Pprod + " ";
+                        P_part = arryProduct[h].Ppart + ",";
+
+                        // insert to database
+                        $.ajax({
+                            type: "post",
+                            url: "User_ajax_req.php",
+                            data: {
+                                Name_req: fname,
+                                P_Code: P_code,
+                                P_Name: P_name,
+                                P_Qty: P_qty,
+                                P_Unit: P_unit,
+                                P_ProdNo: P_prodNo,
+                                P_Part: P_part,
+                                function: 'submit'
+                            },
+                            success: function(data) {
+                                if (data.status == 1) {
+                                    Swal.fire({
+                                        title: '',
+                                        text: 'Data updated successfully!',
+                                        icon: 'success',
+                                    });
+                                    row.remove();
+                                } else {
+                                    Swal.fire({
+                                        title: '',
+                                        text: data.message,
+                                        icon: 'error',
+                                    });
+                                }
+                            }
+                        });
+                    }
+
                 }
+
+
             });
         });
 
@@ -302,7 +308,51 @@
         //     $('#req_no').val(count);
         // });
 
-        // ฟังก์ชั่น
+        function checkMax(event) {
+            const {
+                value,
+                max
+            } = event.target;
+
+            if (max - value == 0) {
+                alert("สินค้าในคลังเหลือ " + max);
+            }
+            // const elements = document.getElementsByName("Qty");
+            // var inputval = "";
+            // for (var index = 0; index < elements.length; index++) {
+            //     inputval = elements[index].value;
+            //     $('#result').val(inputval);
+            //     if (inputval >= max) {
+            //         alert("สินค้าในคลังเหลือ "+ max);
+            //     }
+            // }
+
+        }
+
+        // check duplicate row
+        function CodeCheck(productCode) {
+            var txt = productCode; // Product_code from search box
+            var table = $('#myTable tbody');
+            var row = table.find("tr");
+            var no = table.find("tr:last").find("td:eq(0)").html();
+
+            if (no >= 2) {
+                for (i = 0; i < no; i++) {
+                    var code = $("#Code" + [i + 1]).html();  // Product_code of row
+                    if (txt == code) {
+                        Swal.fire({
+                            title: 'Duplicate Row',
+                            text: 'เลือกรายการนี้ไปแล้ว',
+                            icon: 'error',
+                        });
+                        row[i+1].remove();  // remove duplicate row
+                    }
+                }
+            }
+        }
+
+
+        // add row of selected product 
         function addRowToTable(productCode) {
             var check = $('#check-btn').val(); // get value from id check-btn
             var tbody = $('#myTable tbody'); // เลือก tbody ของตาราง #myTable
@@ -314,9 +364,9 @@
                 indx = tbody.find('tr').length + 1;
             }
             var indexColumn = '<td>' + (tbody.find('tr').length + 1) + '</td>'; //สร้าง cell สำหรับคอลัมน์ No. ใช้ค่าลำดับของแถวใน tbody ปัจจุบัน +1
-            var productColumn = '<td id="Code' + (indx) + '"></td>';
+            var productColumn = '<td name="CodeCheck" id="Code' + (indx) + '"></td>';
             var descriptionColumn = '<td style="width:20%" id="productName' + (indx) + '"></td>';
-            var qtyColumn = '<td><input class="myform" type="text" size="10" class="qty" id="qty' + (indx) + '"></td>'; // ใช้ที่กรอกเข้ามา มาแสดง
+            var qtyColumn = '<td><input class="myform" name="Qty" type="number" min="1" max="" oninput="checkMax(event)" size="10" id="qty' + (indx) + '"></td>'; // ใช้ที่กรอกเข้ามา มาแสดง
             var unitColumn = '<td><input class="myform" type="text" size="10" id="unit' + (indx) + '"></td>'; // ใช้ที่กรอกเข้ามา มาแสดง
             var prodNoColumn = '<td><input class="myform" type="text" id="prodNo' + (indx) + '"></td>'; // ใช้ที่กรอกเข้ามา มาแสดง
             var partColumn = '<td><input class="myform" type="text" id="part' + (indx) + '"></td>'; // ใช้ที่กรอกเข้ามา มาแสดง
@@ -344,8 +394,9 @@
                     function: 'search'
                 },
                 success: function(data) {
-                    newRow.find('td:eq(1)').html(data.ProductCode) // find column 1 in row and show code
-                    newRow.find('td:eq(2)').html(data.ProductName) // find column 2 in row and show name
+                    newRow.find('td:eq(1)').html(data.ProductCode); // find column 1 in row and show code
+                    newRow.find('td:eq(2)').html(data.ProductName); // find column 2 in row and show name
+                    newRow.find('td:eq(3)').find('[name="Qty"]').attr("max", data.max_qty); // find column 3 in row find input name="Qty" and set attribute = total Qty in Store
                 }
             });
         }

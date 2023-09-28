@@ -12,16 +12,19 @@
     color: #FF0000;
 }
 
+.checkbox {
+    width: 25px;
+    height: 25px;
+}
+
 
 /* 
 body {
     background-color: powderblue;
 } */
 
-
-/* .table-striped {
-    border-top: solid black 1px;
-    border-right: solid black 1px;
-    border-left: solid black 1px;
-    border-bottom: solid black 1px;
-} */
+.myform {
+    padding: .116rem .75rem;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+}

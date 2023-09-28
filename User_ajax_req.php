@@ -23,6 +23,7 @@ if (isset($_POST['function']) && $_POST['function'] == 'search') {
     $value = array(
         'ProductCode' => $result['Product_code'],
         'ProductName' => $result['Product_name'],
+        'max_qty' => $result['Qty'],
       );
       echo json_encode($value);
 }

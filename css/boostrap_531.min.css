@@ -1966,16 +1966,14 @@ progress {
 }
 
 .table-bordered>:not(caption)>* {
-    border-style: solid;
-    --bs-table-border-color: black;
-    border-color: var(--bs-table-border-color);
+    --bs-table-border-color: var(--bs-border-width) solid var(--bs-border-color);
+    /* border-color: var(--bs-table-border-color); */
     border-width: var(--bs-border-width) 0
 }
 
 .table-bordered>:not(caption)>*>* {
-    border-style: solid;
-    --bs-table-border-color: black;
-    border-color: var(--bs-table-border-color);
+    --bs-table-border-color: var(--bs-border-width) solid var(--bs-border-color);
+    /* border-color: var(--bs-table-border-color); */
     border-width: 0 var(--bs-border-width)
 }
 
@@ -3402,12 +3400,12 @@ fieldset:disabled .btn {
 }
 
 .btn-dark {
-    --bs-btn-color: #fff;
+    --bs-btn-color: var(--bs-nav-link-color);
     --bs-btn-bg: #212529;
     --bs-btn-border-color: #212529;
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #424649;
-    --bs-btn-hover-border-color: #373b3e;
+    --bs-btn-hover-color: var(--bs-nav-link-hover-color);
+    /* --bs-btn-hover-bg: #424649; */
+    /* --bs-btn-hover-border-color: #373b3e; */
     --bs-btn-focus-shadow-rgb: 66, 70, 73;
     --bs-btn-active-color: #fff;
     --bs-btn-active-bg: #4d5154;
