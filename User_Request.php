@@ -14,6 +14,7 @@
     <script src="js/jquery_370.min.js"></script>
     <script src="js/bootstrap_531.min.js"></script>
     <script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="js/moment.min.js"></script>
 </head>
 
 <body>
@@ -26,9 +27,9 @@
             <div class="col-3">แผนก :</div>
             <div class="col-3">รหัส :</div>
             <div class="col-3">ชื่อ :</div>
-            <div class="col-3">นามสกุล :</div>
+            <div class="col-3">นามสกุล :<br></div>
         </div>
-        <div class="row" style="margin-bottom: 20px;">
+        <div class="row">
             <div class="col-3">
                 <select class="myform" style="width:250px; height:30px" id="Dept">
                     <option value="" selected disabled>- กรุณาเลือกแผนก -</option>
@@ -46,10 +47,12 @@
                 </select>
             </div>
             <div class="col-3">
-                <input class="myform" id="fname" size="27" readonly>
+                <input type="text" class="myform" id="fname" size="27" value="">
+                <br><br>
             </div>
             <div class="col-3">
-                <input class="myform" id="lname" size="27" readonly>
+                <input type="text" class="myform" id="lname" size="27" value="">
+                <br><br>
             </div>
         </div>
         <div class="row">
@@ -58,13 +61,13 @@
                 <div class="input-group">
                     <label class="control-label"><b>Search Product Code or Name:</b></label>
                     <div class="col">
-                        <input type="text" list="searchlist" class="form-control" autocomplete="off" value="" id="txtsearch" placeholder="type here">
+                        <input type="search" list="searchlist" class="form-control" autocomplete="off" value="" id="txtsearch" placeholder="type here">
 
                         <!-- get value for check btn-delete clicked -->
                         <input type="hidden" id="check-btn" value="false">
 
                         <!-- get value from request number -->
-                        <input type="hidden" id="req_no" value="1">
+                        <input type="hidden" id="req_no" value="0">
                         <datalist id="searchlist">
                             <?php
                             $sql2 = "SELECT * FROM Stock ";
@@ -120,24 +123,44 @@
                         <div class="col" style="margin-left : 5px">ผู้จ่ายของ STORE KEEPER :
                         </div>
                         <div class="col-4" style="text-align: left">ผู้รับของ GOODS RECEIVED BY :
+                        </div>
                     </div>
                 </div>
 
             </form>
             <div class="row" style="text-align: end; margin-top : 50px">
-                <input type="hidden" id="result">
-                <div class="col"><button class="btn btn-outline-success btn-submit" style="margin-bottom: 50px;" id="submit" type="submit">Submit</button></div>
+                <div class="col"><button class="btn btn-outline-success btn-submit" style="margin-bottom: 50px;" id="submit" onclick="clickCount()" type="submit">Submit</button></div>
             </div>
         </div>
     </div>
     <script type="text/javascript">
         $('#Divfooter').hide();
-        const d = new Date();
-        var day_req = [d.getFullYear(), d.getMonth(), d.getDate()];
 
+        // get date and set format
+        const d = new Date();
+        var day_req = moment(d).format('YYMMDD');
+
+        //count request no.
+        function clickCount() {
+            // $('#result').val(dateEnd);
+            if (typeof(Storage) !== "undefined") {
+                if (localStorage.clickcount) {
+                    localStorage.clickcount = Number(localStorage.clickcount) + 1;
+                }
+                $('#req_no').val(localStorage.clickcount)
+            }
+        }
 
         $(document).ready(function() {
-
+            var hours = d.getHours();
+            var minutes = d.getMinutes();
+            if (hours == 10 && minutes == 38) {
+                setInterval(function() {
+                    localStorage.clickcount = 0;
+                    location.reload();
+                }, 30000);
+            }
+            
             // ajax department
             $('#Dept').change(function() {
                 var id_dept = $(this).val();
@@ -184,6 +207,28 @@
                 CodeCheck(productCode);
             });
 
+            // check duplicate row
+            function CodeCheck(productCode) {
+                var txt = productCode; // Product_code from search box
+                var table = $('#myTable tbody');
+                var row = table.find("tr");
+                var no = table.find("tr:last").find("td:eq(0)").html();
+
+                if (no >= 2) {
+                    for (i = 0; i < no; i++) {
+                        var code = $("#Code" + [i + 1]).html(); // Product_code of row
+                        if (txt == code) {
+                            Swal.fire({
+                                title: 'Duplicate Row',
+                                text: 'เลือกรายการนี้ไปแล้ว',
+                                icon: 'error',
+                            });
+                            table.find("tr:last").remove(); // remove duplicate row
+                        }
+                    }
+                }
+            }
+
             // submit clicked
             $('.btn-submit').click(function() {
                 var table = $('#myTable tbody'); // find table
@@ -200,10 +245,9 @@
                 const elements = document.getElementsByName("row-btn"); // get elements by name = row-btn (in td[7]) 
                 var n = "";
                 var req_no = $('#req_no').val();
-                var req_date = [day_req.join(""), req_no];
+                var fulldate = day_req.concat(req_no);
                 var fname = $('#fname').val();
                 var lname = $('#lname').val();
-                
 
                 if (fname.length == 0) {
                     Swal.fire({
@@ -240,25 +284,24 @@
                         })
                     }
 
-                    // show result of value in row
-                    //$("#result").val(req_date);
                     let len = arryProduct.length; // check length of array
                     //$("#colresult").val(len);
 
                     // loop for get object from array
                     for (h = 0; h < len; h++) {
-                        P_code = arryProduct[h].PCode + " ";
-                        P_name = arryProduct[h].Pname + " ";
-                        P_qty = arryProduct[h].Pqty + " ";
-                        P_unit = arryProduct[h].Punit + " ";
-                        P_prodNo = arryProduct[h].Pprod + " ";
-                        P_part = arryProduct[h].Ppart + ",";
+                        P_code = arryProduct[h].PCode;
+                        P_name = arryProduct[h].Pname;
+                        P_qty = arryProduct[h].Pqty;
+                        P_unit = arryProduct[h].Punit;
+                        P_prodNo = arryProduct[h].Pprod;
+                        P_part = arryProduct[h].Ppart;
 
                         // insert to database
                         $.ajax({
                             type: "post",
                             url: "User_ajax_req.php",
                             data: {
+                                dateReq: fulldate,
                                 Name_req: fname,
                                 P_Code: P_code,
                                 P_Name: P_name,
@@ -276,6 +319,9 @@
                                         icon: 'success',
                                     });
                                     row.remove();
+                                    $('#usercode').html('<option value="" selected disabled>- กรุณาเลือกรหัสพนักงาน -</option>');
+                                    $('#fname').val(' ');
+                                    $('#lname').val(' ');
                                 } else {
                                     Swal.fire({
                                         title: '',
@@ -288,25 +334,8 @@
                     }
 
                 }
-
-
             });
         });
-
-        // count request
-        // var count = 0;
-        // var hours = d.getHours();
-        // var minutes = d.getMinutes();
-        // $("#colresult").val(minutes);
-        // var submit_click = document.getElementById("submit");
-
-        // submit_click.addEventListener("click", function() {
-        //     if (count==5){
-        //         countReset(count);
-        //     }else
-        //     {count++;}
-        //     $('#req_no').val(count);
-        // });
 
         function checkMax(event) {
             const {
@@ -317,40 +346,7 @@
             if (max - value == 0) {
                 alert("สินค้าในคลังเหลือ " + max);
             }
-            // const elements = document.getElementsByName("Qty");
-            // var inputval = "";
-            // for (var index = 0; index < elements.length; index++) {
-            //     inputval = elements[index].value;
-            //     $('#result').val(inputval);
-            //     if (inputval >= max) {
-            //         alert("สินค้าในคลังเหลือ "+ max);
-            //     }
-            // }
-
         }
-
-        // check duplicate row
-        function CodeCheck(productCode) {
-            var txt = productCode; // Product_code from search box
-            var table = $('#myTable tbody');
-            var row = table.find("tr");
-            var no = table.find("tr:last").find("td:eq(0)").html();
-
-            if (no >= 2) {
-                for (i = 0; i < no; i++) {
-                    var code = $("#Code" + [i + 1]).html();  // Product_code of row
-                    if (txt == code) {
-                        Swal.fire({
-                            title: 'Duplicate Row',
-                            text: 'เลือกรายการนี้ไปแล้ว',
-                            icon: 'error',
-                        });
-                        row[i+1].remove();  // remove duplicate row
-                    }
-                }
-            }
-        }
-
 
         // add row of selected product 
         function addRowToTable(productCode) {
@@ -364,7 +360,7 @@
                 indx = tbody.find('tr').length + 1;
             }
             var indexColumn = '<td>' + (tbody.find('tr').length + 1) + '</td>'; //สร้าง cell สำหรับคอลัมน์ No. ใช้ค่าลำดับของแถวใน tbody ปัจจุบัน +1
-            var productColumn = '<td name="CodeCheck" id="Code' + (indx) + '"></td>';
+            var productColumn = '<td id="Code' + (indx) + '"></td>';
             var descriptionColumn = '<td style="width:20%" id="productName' + (indx) + '"></td>';
             var qtyColumn = '<td><input class="myform" name="Qty" type="number" min="1" max="" oninput="checkMax(event)" size="10" id="qty' + (indx) + '"></td>'; // ใช้ที่กรอกเข้ามา มาแสดง
             var unitColumn = '<td><input class="myform" type="text" size="10" id="unit' + (indx) + '"></td>'; // ใช้ที่กรอกเข้ามา มาแสดง

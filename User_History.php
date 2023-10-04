@@ -25,7 +25,7 @@
         <div class="row" style="margin-bottom: 50px;">
             <div class="col">
                 <label for="mount">Select date :</label>&emsp;
-                <input class="myform" type="month" id="mount" min="2023-01" value="2023-01" />
+                <input class="myform" type="month" id="mount" min="2018-01" value="2023-01" />
             </div>
         </div>
 
@@ -113,7 +113,6 @@
 
         function showTemplate(data) {
             var YearMount = $('#mount').val();
-            var len = data.length;
             for (let i = 0; i < data; i++) {
                 var tbody = $('#myTable tbody');
                 var newRow = $('<tr class="text-center"></tr>');

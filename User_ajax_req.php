@@ -30,6 +30,7 @@ if (isset($_POST['function']) && $_POST['function'] == 'search') {
 
 // get value from function submit and insert to table Request
 if (isset($_POST['function']) && $_POST['function'] == 'submit') {
+  $dateReq = $_POST['dateReq'];
   $name_req = $_POST['Name_req'];
   $PCode = $_POST['P_Code'];
   $PName = $_POST['P_Name'];
@@ -37,8 +38,8 @@ if (isset($_POST['function']) && $_POST['function'] == 'submit') {
   $PUnit = $_POST['P_Unit'];
   $ProdNo = $_POST['P_ProdNo'];
   $Part = $_POST['P_Part'];
-  $sql = "INSERT INTO Request (Name_req,Product_code,Product_name,Qty,Unit,Prod_no,Part)
-          VALUE  ('$name_req','$PCode', '$PName', '$PQty', '$PUnit', '$ProdNo', '$Part')";
+  $sql = "INSERT INTO Request (ID_req,Name_req,Product_code,Product_name,Qty,Unit,Prod_no,Part)
+          VALUE  ('$dateReq','$name_req','$PCode', '$PName', '$PQty', '$PUnit', '$ProdNo', '$Part')";
   if (mysqli_query($conn, $sql)) {
     $response = array(
       'status' => 1,
