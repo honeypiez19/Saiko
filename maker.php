@@ -24,149 +24,94 @@
         <form class="form" style="margin-left: 14px;">
             <!-- search box -->
             <div class="row" style="margin-top: 20px; font-size: 20px;">
-                <div class="input-group">
-                    <div class="col-1">
-                        TAX ID :
-                    </div>
-                    <div class="col-3">
-                        <select class="myform" style="width:250px; height:40px" id="taxid">
-                            <option value="" selected disabled>- กรุณาเลือก TAX ID -</option>
-                            <?php
-                            $sql2 = "select * from Maker";
-                            $query2 = mysqli_query($conn, $sql2);
-                            foreach ($query2 as $row) { ?>
-                                <option value="<?= $row['TaxID'] ?>"><?= $row['TaxID'] ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
+                <div class="col-4">
+                    TAX ID :&emsp;&emsp;
+                    <select class="myform" style="width:250px; height:40px" id="taxid">
+                        <option value="" selected disabled>- กรุณาเลือก TAX ID -</option>
+                        <?php
+                        $sql2 = "select * from Maker";
+                        $query2 = mysqli_query($conn, $sql2);
+                        foreach ($query2 as $row) { ?>
+                            <option value="<?= $row['TaxID'] ?>"><?= $row['TaxID'] ?></option>
+                        <?php } ?>
+                    </select>
                 </div>
             </div>
             <!-- end search box -->
-            <!-- div maker -->
+
+            <!-- all input -->
             <div class="row" style="font-size: 20px; margin-top: 40px">
-                <div class="col-1">
-                    ชื่อบริษัท :
-                </div>
-                <div class="col-3">
+                <div class="col-4">ชื่อบริษัท :&emsp;&nbsp;
                     <input class="myform" type="text" id="CompanyName">
-                    <br><br>
                 </div>
-                <div class="col-1">
-                    สาขา :
-                </div>
-                <div class="col-3">
+                <div class="col-4">สาขา :&emsp;&nbsp;
                     <input class="myform" type="text" id="MajorName">
-                    <br><br>
                 </div>
             </div>
-            <div class="row" style="font-size: 20px;">
-                <div class="col-1">
-                    เลขที่ :
+            <div class="row" style="font-size: 20px; margin-top: 30px">
+                <div class="col-2">เลขที่ :&emsp;
+                    <input class="myform" type="text" id="AddrNo" size="1">
                 </div>
-                <div class="col-1">
-                    <input class="myform" type="text" id="AddrNo" size="2">
-                    <br><br>
-                </div>
-                <div class="col-2">
-                    <label>หมู่ที่ :</label>&emsp;&emsp;
+                <div class="col-2">หมู่ที่ :&emsp;
                     <input class="myform" type="text" id="Moo" size="2">
-                    <br><br>
                 </div>
-                <div class="col-1">
-                    อาคาร :
-                </div>
-                <div class="col-3">
+                <div class="col-4">อาคาร :&emsp;
                     <input class="myform" type="text" id="Building">
-                    <br><br>
                 </div>
-                <div class="col">
-                    ชั้น :
-                </div>
-                <div class="col-3">
+                <div class="col-3">ชั้น :&emsp;
                     <input class="myform" type="text" id="Floor" size="8">
-                    <br><br>
                 </div>
             </div>
-            <div class="row" style="font-size: 20px;">
-                <div class="col-2">
-                    <label>ห้อง :</label>&emsp;&emsp;&emsp;
+            <div class="row" style="font-size: 20px; margin-top: 30px">
+                <div class="col-2">ห้อง :&emsp;&nbsp;&nbsp;
                     <input class="myform" type="text" id="Room" size="1">
-                    <br><br>
                 </div>
-                <div class="col-2">
-                    <label>ซอย :</label>&emsp;&emsp;
+                <div class="col-2">ซอย :&emsp;
                     <input class="myform" type="text" id="Soi" size="2">
-                    <br><br>
                 </div>
-                <div class="col-4">
-                    <label>ถนน :</label>&emsp;&emsp;&emsp;
+                <div class="col-4">ถนน :&emsp;&nbsp;&nbsp;&nbsp;
                     <input class="myform" type="text" id="Road" size="20">
-                    <br><br>
                 </div>
-                <div class="col-1">
-                    จังหวัด :
+                <div class="col-4">ตำบล :&emsp;&nbsp;
+                    <input class="myform" type="text" id="sub_district" size="24">
                 </div>
-                <div class="col-3">
-                    <input class="myform" type="text" id="province">
+
+            </div>
+            <div class="row" style="font-size: 20px; margin-top: 30px">
+                <div class="col-4">อำเภอ :&emsp;
+                    <input class="myform" type="text" id="district" size="20">
+                </div>
+                <div class="col-4">จังหวัด :&nbsp;&nbsp;
+                    <input class="myform" type="text" id="province" size="24">
+                </div>
+                <div class="col-4">รหัสไปรษณีย์ :&emsp;
+                    <input class="myform" type="text" size="18" id="postcode">
                 </div>
             </div>
-            <div class="row" style="font-size: 20px;">
-                <div class="col-1">
-                    อำเภอ :
+            <div class="row" style="font-size: 20px; margin-top: 30px">
+                <div class="col-4">แฟ็กซ์ :&nbsp;&nbsp;&nbsp;
+                    <input class="myform" type="text" id="Fax" size="24">
                 </div>
-                <div class="col-3">
-                    <input class="myform" type="text" id="district"></input>
-                    <br><br>
-                </div>
-                <div class="col-1">
-                    ตำบล :
-                </div>
-                <div class="col-3">
-                    <input class="myform" type="text" id="sub_district"></input>
-                    <br>
-                </div>
-                <div class="col-4" style="padding:0px;">
-                    &emsp;<label>รหัสไปรษณีย์ :</label>&emsp;&emsp;
-                    <input class="myform" type="text" size="4" id="postcode">
-                    <br>
-                </div>
-            </div>
-            <div class="row" style="font-size: 20px;">
-                <div class="col-4">
-                    <label>แฟ็กซ์ :</label>&emsp;&emsp;
-                    <input class="myform" type="text" id="Fax" size="22">
-                    <br><br>
-                </div>
-                <div class="col-4">
-                    <label>เบอร์โทร 1 :</label>&emsp;&emsp;
+                <div class="col-4">เบอร์โทร 1 :&emsp;
                     <input class="myform" type="text" id="TelOne" size="20">
-                    <br><br>
                 </div>
-                <div class="col-4">
-                    <label>เบอร์โทร 2 :</label>&emsp;
+                <div class="col-4">เบอร์โทร 2 :&emsp;
                     <input class="myform" type="text" id="TelTwo" size="20">
-                    <br><br>
                 </div>
             </div>
-            <div class="row" style="font-size: 20px;">
-                <div class="col-4">
-                    <label>เบอร์โทร 3 :</label>&emsp;&emsp;
+            <div class="row" style="font-size: 20px; margin-top: 30px; margin-bottom:40px">
+                <div class="col-4">เบอร์โทร 3 :&emsp;
                     <input class="myform" type="text" id="TelThree" size="20">
-                    <br><br>
                 </div>
-                <div class="col-4">
-                    <label>อีเมล 1 :</label>&emsp;&emsp;
-                    <input class="myform" type="text" id="MailOne" size="20">
-                    <br><br>
+                <div class="col-4">อีเมล 1 :&emsp;
+                    <input class="myform" type="text" id="MailOne" size="23">
                 </div>
-                <div class="col-4">
-                    <label>อีเมล 2 :</label>&emsp;&emsp;
-                    <input class="myform" type="text" id="MailTwo" size="20">
-                    <br><br>
+                <div class="col-4">อีเมล 2 :&emsp;
+                    <input class="myform" type="text" id="MailTwo" size="23">
                 </div>
             </div>
+            <!-- end input -->
         </form>
-        <!-- end div maker -->
     </div>
     <script type="text/javascript">
         // show data of maker
