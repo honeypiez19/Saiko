@@ -84,7 +84,7 @@
             </div>
 
             <h1 class="heading">รายการเบิก</h1>
-            <form>
+            <form id="FormInput">
                 <table class="table table-bordered" id="myTable">
                     <thead>
                         <tr class="text-center">
@@ -128,8 +128,8 @@
                 </div>
 
             </form>
-            <div class="row" style="text-align: end; margin-top : 50px">
-                <div class="col"><button class="btn btn-outline-success btn-submit" style="margin-bottom: 50px;" id="submit" onclick="clickCount()" type="submit">Submit</button></div>
+            <div class="row" style="text-align: end; margin-top : 50px; margin-bottom: 50px;">
+                <div class="col"><button class="btn btn-outline-success btn-submit" onclick="clickCount()" type="submit">Submit</button></div>
             </div>
         </div>
     </div>
@@ -160,7 +160,7 @@
                     location.reload();
                 }, 30000);
             }
-            
+
             // ajax department
             $('#Dept').change(function() {
                 var id_dept = $(this).val();
@@ -228,6 +228,13 @@
                     }
                 }
             }
+
+            $(window).on("keypress", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    $('.btn-submit').click();
+                }
+            });
 
             // submit clicked
             $('.btn-submit').click(function() {

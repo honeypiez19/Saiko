@@ -126,11 +126,13 @@ if (isset($_POST['function']) && $_POST['function'] == 'add_code') {
     $dateReq = date("Y-m-d", $d); // set format of date
     if ($date == $dateReq && $id == $code) {  // compare date and product_code
 
+      $pcode = $result['Product_code'];
+      $pname = $result['Product_name'];
       // two-dimensional array for send to ajax and can loop for encode object
       $value = array(
         array(
-          'code' => $result['Product_code'],
-          'name' => $result['Product_name'],
+          'code' => $pcode,
+          'name' => $pname,
           'qty' => $result['Qty'],
           'unit' => $result['Unit'],
           'unit_price' => $result['Unit_price'],
