@@ -1,12 +1,11 @@
 <?php
  include 'connect.php';
   if (isset($_POST['function']) && $_POST['function'] == 'province') {
-  	$id = $_POST['id'];
   	$sql = "select DISTINCT District from Province where Province='$id'";
   	$query = mysqli_query($conn, $sql);
-  	echo '<option value="" selected disabled>-กรุณาเลือก เขต/อำเภอ-</option>';
+  	echo '<option value="" selected disabled>- กรุณาเลือกผู้จำหน่าย -</option>';
   	foreach ($query as $value) {
-  		echo '<option value="'.$value['District'].'">'.$value['District'].'</option>';
+  		echo '<option value="'.$value['TaxID'].'">'.$value['TaxID'].'</option>';
   	}
   }
 

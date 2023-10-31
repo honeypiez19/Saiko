@@ -4,6 +4,12 @@
     margin-top: 30px;
 }
 
+table.setcolhead,
+.setcolhead td {
+    padding: .0rem .0rem;
+    border: hidden;
+}
+
 .control-label {
     margin-right: 20px;
 }
@@ -17,10 +23,33 @@
     height: 25px;
 }
 
+.page {
+    width: 21cm;
+    height: 29.7cm;
+    background-color: white;
+}
 
-/* 
-body {
-    background-color: powderblue;
+.mytable {
+    --bs-table-border-color: var(--bs-border-width) solid var(--bs-border-color);
+    border-color: var(--bs-table-border-color);
+    border-width: 0 var(--bs-border-width);
+    border-left: var(--bs-border-width) solid;
+    border-right: var(--bs-border-width) solid;
+}
+
+
+/* Force PDF page breaks between rows, not mid-row */
+
+
+/* .hg-pdf table tr {
+    page-break-inside: avoid;
+} */
+
+
+/* @media print {
+    footer {
+        page-break-after: always;
+    }
 } */
 
 .myform {

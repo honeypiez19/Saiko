@@ -139,12 +139,17 @@
         // get date and set format
         const d = new Date();
         var day_req = moment(d).format('YYMMDD');
-
+        var datenow = d.getDate();
+        var hours = d.getHours();
+        var minutes = d.getMinutes();
         //count request no.
         function clickCount() {
-            // $('#result').val(dateEnd);
             if (typeof(Storage) !== "undefined") {
                 if (localStorage.clickcount) {
+                    //********** WAIT **********
+                    if (datenow == 31 && hours == 09 && minutes == 40) {
+                        localStorage.clickcount = 0;
+                    }
                     localStorage.clickcount = Number(localStorage.clickcount) + 1;
                 }
                 $('#req_no').val(localStorage.clickcount)
@@ -152,14 +157,6 @@
         }
 
         $(document).ready(function() {
-            var hours = d.getHours();
-            var minutes = d.getMinutes();
-            if (hours == 10 && minutes == 38) {
-                setInterval(function() {
-                    localStorage.clickcount = 0;
-                    location.reload();
-                }, 30000);
-            }
 
             // ajax department
             $('#Dept').change(function() {

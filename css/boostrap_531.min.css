@@ -1967,13 +1967,13 @@ progress {
 
 .table-bordered>:not(caption)>* {
     --bs-table-border-color: var(--bs-border-width) solid var(--bs-border-color);
-    /* border-color: var(--bs-table-border-color); */
+    border-color: var(--bs-table-border-color);
     border-width: var(--bs-border-width) 0
 }
 
 .table-bordered>:not(caption)>*>* {
     --bs-table-border-color: var(--bs-border-width) solid var(--bs-border-color);
-    /* border-color: var(--bs-table-border-color); */
+    border-color: var(--bs-table-border-color);
     border-width: 0 var(--bs-border-width)
 }
 
