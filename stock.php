@@ -37,6 +37,8 @@
                         <th>ราคาต่อหน่วย</th>
                         <th>มูลค่าคงเหลือ</th>
                         <th>จำนวนขั้นต่ำ</th>
+                        <th>จำนวนสูงสุด</th>
+                        <th>สถานะ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,28 +46,37 @@
                         <!-- connect database -->
                         <?php
                         while ($row = $result->fetch_assoc()) :
+                            $PCode = $row['Product_code'];
+                            $trow = "<tr class='align-middle'>";
+                            $colCode = "<td> " . $PCode . "</td>";
+                            $colName = "<td> " . $row['Product_name'] . "</td>";
+                            $colUnit = "<td class='text-center'> " . $row['Unit'] . "</td>";
+                            $colPrice = "<td class='text-end'> " . $row['Unit_price'] . "</td>";
+                            $colResvalue = "<td class='text-end'> " . $row['Residual_value'] . "</td>";
+                            $colMin = "<td class='text-center'> " . $row['Min'] . "</td>";
+                            $colMax = "<td class='text-center'> " . $row['Max'] . "</td>";
                             $purchase = $row['Max'] - $row['Qty'];
-                            if ($row['Qty'] < $row['Min']) {
-                                echo "<tr class='align-middle'>
-                        <td> " . $row['Product_code'] . "</td>
-                        <td> " . $row['Product_name'] . "</td>
-                        <td class='text-center table-danger'>" . $row['Qty'] . "</td>
-                        <td class='text-center'> " . $row['Unit'] . "</td>
-                        <td class='text-end'> " . $row['Unit_price'] . "</td>
-                        <td class='text-end'> " . $row['Residual_value'] . "</td>
-                        <td class='text-center'> " . $row['Min'] . "</td>
-                    </tr> ";
+                            
+                            if ($row['Qty'] < $row['Min'] && $row['Status'] != 2) {
+                                $colQty = "<td class='text-center table-danger'>" . $row['Qty'] . "</td>";
+                                $colStatus = "<td class='text-center table-danger'>ยังไม่สั่ง</td></tr>";
+
+                                $sql = "UPDATE Stock SET Status = '1' WHERE Product_code = '$PCode'";
+                                $query = mysqli_query($conn, $sql);
+                            } else if ($row['Status'] == 2) {
+                                $colQty = "<td class='text-center table-warning'>" . $row['Qty'] . "</td>";
+                                $colStatus = "<td class='text-center table-warning'>รอรับของ</td></tr>";
+                            } else if ($row['Status'] == 3) {
+                                $colQty = "<td class='text-center table-success'>" . $row['Qty'] . "</td>";
+                                $colStatus = "<td class='text-center table-success'>รับของแล้ว</td></tr>";
                             } else {
-                                echo "<tr class='align-middle'>
-                        <td> " . $row['Product_code'] . "</td>
-                        <td> " . $row['Product_name'] . "</td>
-                        <td class='text-center'> " . $row['Qty'] . "</td>
-                        <td class='text-center'> " . $row['Unit'] . "</td>
-                        <td class='text-end'> " . $row['Unit_price'] . "</td>
-                        <td class='text-end'> " . $row['Residual_value'] . "</td>
-                        <td class='text-center'> " . $row['Min'] . "</td>
-                    </tr> ";
+                                $colQty = "<td class='text-center'>" . $row['Qty'] . "</td>";
+                                $colStatus = "<td class='text-center'>ปกติ</td></tr>";
+
+                                // $sql = "UPDATE Stock SET Status = '0' WHERE Product_code = '$PCode'";
+                                // $query = mysqli_query($conn, $sql);
                             }
+                            echo $trow . $colCode . $colName . $colQty . $colUnit . $colPrice . $colResvalue . $colMin . $colMax . $colStatus;
                         ?>
                         <?php endwhile ?>
                         <?php $conn->close(); ?>
@@ -93,7 +104,7 @@
                                             <select id="selectMaker" style="width:250px;" required>
                                                 <option value="" selected disabled>- กรุณาเลือกผู้จำหน่าย -</option>
                                                 <?php include 'connect.php';
-                                                $sql2 = "SELECT DISTINCT TaxID, Company_name FROM Orders ";
+                                                $sql2 = "SELECT DISTINCT TaxID, Company_name FROM Orders o INNER JOIN Stock s ON o.Product_code = s.Product_code WHERE s.Status = 1";
                                                 $query2 = mysqli_query($conn, $sql2);
                                                 foreach ($query2 as $row) { ?>
                                                     <option value="<?= $row['TaxID'] ?>"><?= $row['TaxID'] ?></option>
@@ -105,7 +116,6 @@
                                         <td>เลขที่ใบสั่งซื้อ :</td>
                                         <td>
                                             <input class="myform" type="text" id="po_no" readonly>
-                                            <input class="myform" type="text" id="ds" readonly>
                                             <!-- <button type="button" class="btn btn-outline-warning btn-sm" id="ResetPONo">Reset P.O.</button> -->
                                         </td>
                                     </tr>
@@ -188,6 +198,7 @@
 
                 function Min_Details(master_min) {
                     let len = master_min.length;
+
                     // check row before row of detail and remove
                     var modal_body = document.querySelectorAll('#TableProduct tr');
                     if (modal_body.length != len) {
@@ -195,7 +206,6 @@
                             $('#TableProduct tr:first').remove();
                         }
                     }
-
                     // loop object
                     for (let q = 0; q < len; q++) {
                         var body = $('#showProduct tbody');
@@ -347,10 +357,10 @@
                             mail2: $('#mail2').val(),
                             function: 'po_insert'
                         }
-                    });
+                    }).then(localStorage.setItem('sendPONo', poNo), window.location.href = "PO.php");
                     $('input[type=checkbox]').prop('checked', false);
                     $('input[type=checkbox]').removeProp('checked');
-                    $.when($.ajax("ajax_PO.php")).then(localStorage.setItem('sendPONo', poNo), window.location.href = "PO.php");
+                    // $.when($.ajax("ajax_PO.php")).then(localStorage.setItem('sendPONo', poNo), window.location.href = "PO.php");
                 }
 
             });

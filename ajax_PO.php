@@ -18,13 +18,13 @@ if (isset($_POST['function']) && $_POST['function'] == 'po_insert') {
     $PUnit = $joinCol['Punit'];
     $Price = $joinCol['Price'];
 
-    $status = 1;
-    $sql = "INSERT INTO PO (PONo,Product_code,Product_name,Qty,Unit,Unit_price,Status,Date_cre,TaxID,Company_name,Address,Email_one,Email_two)
+    $status = 2;
+    $sql1 = "INSERT INTO PO (PONo,Product_code,Product_name,Qty,Unit,Unit_price,Status,Date_cre,TaxID,Company_name,Address,Email_one,Email_two)
           VALUE  ('$PONo','$PCode', '$PName', '$Purchase', '$PUnit', '$Price', '$status', '$Datetime','$maker','$makerName','$makerAddr','$mail1','$mail2')";
-    $query = mysqli_query($conn, $sql);
+    $query1 = mysqli_query($conn, $sql1);
 
-    $sql = "UPDATE Stock SET Status = '$status' WHERE Product_code = '$PCode'";
-    $query = mysqli_query($conn, $sql);
+    $sql2 = "UPDATE Stock SET Status = '$status' WHERE Product_code = '$PCode'";
+    $query2 = mysqli_query($conn, $sql2);
   }
   mysqli_close($conn);
 }
@@ -33,7 +33,7 @@ if (isset($_POST['function']) && $_POST['function'] == 'min_stock') {
   $sql = "select * from Stock";
   $query = mysqli_query($conn, $sql);
   foreach ($query as $row) {
-    if ($row['Qty'] < $row['Min'] && $row['Status'] == 0) {
+    if ($row['Qty'] < $row['Min'] && $row['Status'] == 1) {
       $value[] = array(
         'code' => $row['Product_code'],
         'name' => $row['Product_name'],
@@ -55,7 +55,7 @@ if (isset($_POST['function']) && $_POST['function'] == 'master') {
           WHERE TaxID = '$maker'";
   $query = mysqli_query($conn, $sql);
   foreach ($query as $row) {
-    if ($row['Qty'] < $row['Min'] && $row['Status'] == 0) {
+    if ($row['Qty'] < $row['Min'] && $row['Status'] == 1) {
       $value[] = array(
         'code' => $row['Product_code'],
         'name' => $row['Product_name'],

@@ -203,22 +203,22 @@
                 setTimeout(function() {
                     // call db for get row of product
                     getPOdetails();
-                }, 300);
+                }, 1000);
             }).then(() => {
                 setTimeout(function() {
                     // call db for get row of product
                     getAmount();
-                }, 300);
+                }, 1000);
             }).then(() => {
                 // gen pdf and save
                 setTimeout(function() {
                     scshot();
-                }, 500);
+                }, 2000);
             }).then(() => {
                 // gen pdf and save
                 setTimeout(function() {
                     sendMail();
-                }, 5000);
+                }, 4000);
             });
 
             // call db for get row of product
