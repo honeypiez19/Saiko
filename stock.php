@@ -105,6 +105,7 @@
                                         <td>เลขที่ใบสั่งซื้อ :</td>
                                         <td>
                                             <input class="myform" type="text" id="po_no" readonly>
+                                            <input class="myform" type="text" id="ds" readonly>
                                             <!-- <button type="button" class="btn btn-outline-warning btn-sm" id="ResetPONo">Reset P.O.</button> -->
                                         </td>
                                     </tr>
@@ -263,7 +264,7 @@
                         $('.btn-submit').prop('disabled', true);
                     }
                 });
-                $('input[class=Cbxproduct]').click(function() {
+                $('input[class=Cbxproduct]').change(function() {
                     var countChecked = $('input[class=Cbxproduct]:checked').length;
                     if (countChecked == 6) {
                         $('#allcheck').prop('checked', true);
@@ -273,10 +274,10 @@
                         $('#allcheck').removeProp('checked');
                         $('.Cbxproduct').not(':checked').prop('disabled', false);
                     }
-                    if (countChecked > 0) {
-                        $('.btn-submit').prop('disabled', false);
-                    } else {
+                    if (countChecked == 0) {
                         $('.btn-submit').prop('disabled', true);
+                    } else {
+                        $('.btn-submit').prop('disabled', false);
                     }
                 });
 
@@ -347,8 +348,8 @@
                             function: 'po_insert'
                         }
                     });
-                    $('#allcheck').prop('checked', false);
-                    $('#allcheck').removeProp('checked');
+                    $('input[type=checkbox]').prop('checked', false);
+                    $('input[type=checkbox]').removeProp('checked');
                     $.when($.ajax("ajax_PO.php")).then(localStorage.setItem('sendPONo', poNo), window.location.href = "PO.php");
                 }
 

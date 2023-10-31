@@ -22,6 +22,9 @@ if (isset($_POST['function']) && $_POST['function'] == 'po_insert') {
     $sql = "INSERT INTO PO (PONo,Product_code,Product_name,Qty,Unit,Unit_price,Status,Date_cre,TaxID,Company_name,Address,Email_one,Email_two)
           VALUE  ('$PONo','$PCode', '$PName', '$Purchase', '$PUnit', '$Price', '$status', '$Datetime','$maker','$makerName','$makerAddr','$mail1','$mail2')";
     $query = mysqli_query($conn, $sql);
+
+    $sql = "UPDATE Stock SET Status = '$status' WHERE Product_code = '$PCode'";
+    $query = mysqli_query($conn, $sql);
   }
   mysqli_close($conn);
 }
