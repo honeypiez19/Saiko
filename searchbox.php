@@ -38,7 +38,7 @@ $result = mysqli_query($conn,$sql);
         <form class="form-horizontal" method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
             <div class="row" style="margin-top: 30px;">
                 <div class="input-group">
-                    <label class="control-label"><b>Search Product Code or Name:</b></label>
+                    <label class="control-label" for="txtKeyword"><b>Search Product Code or Name:</b></label>
                     <div class="col">
                         <input name="txtKeyword" type="text" class="form-control" id="txtKeyword" value="<?php echo $search; ?>" placeholder="type here">
                     </div>
