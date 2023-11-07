@@ -2,26 +2,37 @@
 header('Content-Type: application/json');
 
 // get mount and find date of mount
-if (isset($_POST['function']) && $_POST['function'] == 'dateMount') {
-  $m = $_POST["mount"];
+if (isset($_POST['function']) && $_POST['function'] == 'datemonth') {
+  $m = $_POST["month"];
   $Y = $_POST["year"];
   $d = cal_days_in_month(CAL_GREGORIAN, $m, $Y);
   echo $d; // send total date to ajax
 }
 
-// check date and send PONo
+// check date and send Reqno
 if (isset($_POST['function']) && $_POST['function'] == 'dateReq') {
-  $id = $_POST["id"];
-  $sql = "select * from Request";
+  $id = $_POST["id"]; // day
+  $sql = "select * from Request order by Date_req";
   $query = mysqli_query($conn, $sql);
   foreach ($query as $result) {
     $d = strtotime($result['Date_req']);
     $dateReq = date("Y-m-d", $d); // set format of date
     if ($id == $dateReq) {  // compare date from ajax and date of product
-      $code[] = $result['Product_code'];
+      $value[] = 
+        array(
+          'day' => $id,
+          'code' => $result['Product_code'],
+          'name' => $result['Product_name'],
+          'qty' => $result['Qty'],
+          'unit' => $result['Unit'],
+          'prod' => $result['Prod_no'],
+          'part' => $result['Part'],
+          'datetime' => $result['Date_req'],
+          'name_req' => $result['Name_req'],
+      );
     }
   }
-  echo json_encode($code);
+  echo json_encode($value);
 }
 
 // get Product_code from ajax function In_code and send value of row
