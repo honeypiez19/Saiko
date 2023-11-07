@@ -104,23 +104,6 @@
                 <tbody id="details"></tbody>
             </table>
 
-            <!-- footer -->
-            <div id="Divfooter">
-                <div class="row" style="margin-top : 50px; margin-left:2px">ได้ตรวจสอบจำนวน และรายละเอียดต่างๆ เรียบร้อยแล้ว</div>
-                <div class="row" style="margin-top : 30px">
-                    <div class="col" style="margin-left : 5px">ผู้เบิก REQUEST NAME : <span name="nameReq"></span>
-                    </div>
-                    <div class="col-4" style="text-align: left;">ผู้อนุมัติ APPROVED BY :
-                    </div>
-                </div>
-                <div class="row" style="margin-top : 20px">
-                    <div class="col" style="margin-left : 5px">ผู้จ่ายของ STORE KEEPER :
-                    </div>
-                    <div class="col-4" style="text-align: left">ผู้รับของ GOODS RECEIVED BY : <span name="nameReq"></span>
-                    </div>
-                </div>
-            </div>
-
             <!-- submit button -->
             <div class="row" style="text-align: end; margin-top : 50px; margin-bottom: 50px;">
                 <div class="col">
@@ -130,7 +113,6 @@
         </div>
     </div>
     <script type="text/javascript">
-        $('#Divfooter').hide();
 
         // get date and set format
         const d = new Date();
@@ -250,7 +232,6 @@
                         icon: 'error',
                     });
                 } else {
-                    $('#Divfooter').show();
                     if (typeof(Storage) !== "undefined") {
                         if (localStorage.clickcount) {
                             //********** WAIT **********
