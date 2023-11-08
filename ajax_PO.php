@@ -108,7 +108,7 @@ if (isset($_POST['function']) && $_POST['function'] == 'po_details') {
       'qty' => $row['Qty'],
       'unit' => $row['Unit'],
       'price' => $row['Unit_price'],
-      'amount' => sprintf("%.2f", $amount),
+      'amount' => number_format($amount,2),
     );
   }
   echo json_encode($value);
@@ -138,14 +138,14 @@ if (isset($_POST['function']) && $_POST['function'] == 'po_amount') {
   }
   $total = $sub_total - $discount;
   $vat = $total * 0.07;
-  $grand = $total + $vat;
+  $grand = $total + sprintf("%.2f", $vat);
 
   // check if grand is decimal
-  $txtgrand = sprintf("%.2f", $grand);
+  $txtgrand = sprintf("%.2f",$grand);
   if (fmod($txtgrand, 1) !== 0.0) {
     $num = intval($txtgrand); // cut only number not decimal
     $txtnum = gettxt($num); // call function gettxt for convert num to txt
-    $digit = round($txtgrand - $num, 2); // grand - num and fix decimal 2 digit
+    $digit = number_format($txtgrand - $num, 2); // grand - num and fix decimal 2 digit
     $subdigit = substr($digit, 2); // cut only digit of grand - num
 
     // check decimal
@@ -216,11 +216,11 @@ if (isset($_POST['function']) && $_POST['function'] == 'po_amount') {
   }
   $row_po = array(
     'poNo' => $getPONo,
-    'sub' => sprintf("%.2f", $sub_total),
-    'dis' => sprintf("%.2f", $discount),
-    'vat' => sprintf("%.2f", $vat),
-    'total' => sprintf("%.2f", $total),
-    'grand' => sprintf("%.2f", $grand),
+    'sub' => number_format($sub_total,2),
+    'dis' => number_format($discount,2),
+    'vat' => number_format($vat,2),
+    'total' => number_format($total,2),
+    'grand' => number_format($grand,2),
     'text' => $resultConvertText,
   );
   echo json_encode($row_po);
