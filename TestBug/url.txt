@@ -1,0 +1,19 @@
+http://192.168.100.122/project_j/signup.php
+
+
+
+Super Admin
+User : super
+Pass : 99999
+***************
+Admin Office
+User :NATNICHA
+Pass : 1234
+***************
+Admin Store
+User :SUWANNEE
+Pass : 1234
+***************
+Member
+User :PHIPAT
+Pass : 1234
